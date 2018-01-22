@@ -38,6 +38,6 @@ toffee_tbl <- function(model) {
     mutate(p.value = map_chr(p.value, as.character)) %>%
     mutate(p.value = map_chr(p.value, ~ ifelse(.x < 0.01, "< 0.01", .x))) %>%
     mutate(p.value = paste0(p.value, Star)) %>%
-    mutate(CI = toffee_ci(Coef, std.error, lf)) %>%
+    mutate(CI = toffee_ci(estimate, std.error, lf)) %>%
     dplyr::select(term, Coef, CI, p.value)
 }

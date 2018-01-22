@@ -1,7 +1,7 @@
 Package: toffee
 Type: Package
 Title: Create Curly Haired Bouncy Happy Tables
-Version: 0.0.9004
+Version: 0.0.9005
 Authors@R: c(
     person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
     )
