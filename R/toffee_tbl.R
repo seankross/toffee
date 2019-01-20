@@ -16,7 +16,8 @@
 #' @param odds_ratio If `TRUE` and the family of the model provided is
 #' `logit` then the model coefficients and confidence intervals returned in
 #' the resulting table will be odds ratios.
-#' @param ... Arguments that will be passed to [toffee_signif]. For example,
+#' @param ci_fmt If `TRUE` CI is one column, if `FALSE` CI is two columns.
+#' @param ... Arguments that will be passed to [toffee_signif]. For example, TODO
 #' @return A [tibble::tibble()] with the following columns: the
 #' name of the coefficient in the model (`Variable`), the value of the
 #' coefficient (`Estimate` or `Odds_Ratio`), the
@@ -82,7 +83,8 @@
 #' logistic_model %>%
 #'   toffee_tbl(thresholds = 0.01, chars = "*")
 toffee_tbl <- function(model, conf_level = 0.95, digits = 2,
-                       concat_signif = TRUE, odds_ratio = TRUE, ...) {
+                       concat_signif = TRUE, odds_ratio = TRUE,
+                       ci_fmt = TRUE, ...) {
 
   link <- family(model)$link
 
@@ -98,11 +100,20 @@ toffee_tbl <- function(model, conf_level = 0.95, digits = 2,
     mutate_at(c("estimate", "conf.low", "conf.high", "p.value"),
               round, digits = digits) %>%
     mutate(p.value = map_chr(p.value, as.character)) %>%
-    mutate(p.value = map_chr(p.value, ~ if_else(.x < 0.01, "< 0.01", .x))) %>%
-    mutate(CI = map2_chr(conf.low, conf.high,
-                         ~ paste0("[", .x, ", ", .y, "]"))) %>%
-    dplyr::select(term, estimate, CI, p.value, Significant) %>%
-    rename(Variable = term, Estimate = estimate, p_value = p.value)
+    mutate(p.value = map_chr(p.value, ~ if_else(.x < 0.01, "< 0.01", .x)))
+
+  if (ci_fmt) {
+    result <- result %>%
+      mutate(CI = map2_chr(conf.low, conf.high,
+                           ~ paste0("[", .x, ", ", .y, "]"))) %>%
+      dplyr::select(term, estimate, CI, p.value, Significant) %>%
+      rename(Variable = term, Estimate = estimate, p_value = p.value)
+  } else {
+    result <- result %>%
+      dplyr::select(term, estimate, conf.low, conf.high, p.value, Significant) %>%
+      rename(Variable = term, Estimate = estimate, Lower_CI = conf.low,
+             Upper_CI = conf.high, p_value = p.value)
+  }
 
   if(link == "logit" && odds_ratio) {
     result <- result %>%
