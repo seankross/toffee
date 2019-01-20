@@ -1,7 +1,8 @@
 #' Create a nicely formatted table from a linear model.
 #'
-#' Given a general linear model (like from [stats::lm()] or [stats::glm()]) this
-#' function makes a table intended for interactive use or publication.
+#' Given a general linear model (like from [stats::lm()], [stats::glm()], or
+#' [lme4::glmer()]) this function makes a table intended for interactive use or
+#' publication.
 #'
 #' @param model A model object that is compatible with [broom::tidy()].
 #' @param conf_level The confidence level that will be used for computing the
@@ -83,10 +84,7 @@
 toffee_tbl <- function(model, conf_level = 0.95, digits = 2,
                        concat_signif = TRUE, odds_ratio = TRUE, ...) {
 
-  link <- model$link
-  if(is_null(link)) {
-    link <- family(model)$link
-  }
+  link <- family(model)$link
 
   if(link == "logit" && odds_ratio) {
     mean_function <- exp

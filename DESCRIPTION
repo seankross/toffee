@@ -1,13 +1,19 @@
 Package: toffee
 Type: Package
-Title: Create Tables of Generalized Linear Models
-Version: 0.1.0.9000
+Title: Create Tables for Easily Understanding Generalized Linear Models
+Version: 0.1.0.9010
 Authors@R: c(
-    person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
+    person(given = "Sean", 
+           family = "Kross", 
+           email = "sean@seankross.com", 
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-5215-0316"))
     )
 Description: Create tables formatted for interactively evaluating and 
     communicating results from generalized linear models.
 License: MIT + file LICENSE
+URL: https://github.com/seankross/toffee
+BugReports: https://github.com/seankross/toffee/issues
 Encoding: UTF-8
 Depends:
     R (>= 3.1.0)
