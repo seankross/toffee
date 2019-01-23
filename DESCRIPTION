@@ -1,7 +1,7 @@
 Package: toffee
 Type: Package
-Title: Create Tables for Easily Understanding Generalized Linear Models
-Version: 0.1.0.9010
+Title: Create Tables for Easy Understanding of Model Objects
+Version: 0.1.0.9012
 Authors@R: c(
     person(given = "Sean", 
            family = "Kross", 
@@ -10,7 +10,7 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-5215-0316"))
     )
 Description: Create tables formatted for interactively evaluating and 
-    communicating results from generalized linear models.
+    communicating results from model objects.
 License: MIT + file LICENSE
 URL: https://github.com/seankross/toffee
 BugReports: https://github.com/seankross/toffee/issues
@@ -20,10 +20,11 @@ Depends:
 Imports:
     dplyr (>= 0.7.6),
     broom (>= 0.5.0),
-    purrr (>= 0.2.5)
+    purrr (>= 0.2.5),
+    magrittr
 Suggests:
-    testthat (>= 2.0.0),
+    testthat,
     MASS (>= 7.3.0)
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)

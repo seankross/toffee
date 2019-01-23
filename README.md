@@ -1,5 +1,8 @@
 # Toffee
 
+[![Travis build status](https://travis-ci.org/seankross/toffee.svg?branch=master)](https://travis-ci.org/seankross/toffee) 
+[![CRAN status](https://www.r-pkg.org/badges/version/toffee)](https://cran.r-project.org/package=toffee)
+
 ## Installation
 
 ```r

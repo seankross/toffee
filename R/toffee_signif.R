@@ -13,8 +13,18 @@ toffee_signif <- function(p_values,
                          thresholds = c(0.05, 0.01, 0.001),
                          chars = c("*", "**", "***")) {
 
-  if(length(thresholds) != length(chars)) {
+  if (length(thresholds) != length(chars)) {
     stop("[toffee_signif] Please ensure that there are the same number of thresholds and character symbols.",
+         call. = FALSE)
+  }
+
+  if (is.unsorted(rev(thresholds))) {
+    stop("[toffee_signif] Please ensure that the thresholds are strictly descending.",
+         call. = FALSE)
+  }
+
+  if (length(thresholds) != length(unique(thresholds))) {
+    stop("[toffee_signif] Please ensure that the thresholds contain no repeated values.",
          call. = FALSE)
   }
 
